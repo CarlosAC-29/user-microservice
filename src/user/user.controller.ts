@@ -58,4 +58,25 @@ export class UserController {
         }
         return { message: 'Usuario eliminado exitosamente' };
     }
+
+    @Post('login')
+    async verifyCredentials(@Body() credentials: { username: string, password: string }) {
+        const collectionName = 'users';
+    
+        // Verifica las credenciales
+        const isVerified = await this.firebaseService.verifyCredentials(
+            collectionName,
+            credentials.username,
+            credentials.password
+        );
+    
+        if (isVerified) {
+            return { message: 'Credenciales válidas' };
+        } else {
+            throw new HttpException({
+                message: 'Credenciales inválidas',
+            }, HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 }

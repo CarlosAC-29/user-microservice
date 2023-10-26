@@ -87,4 +87,26 @@ export class UserService {
         }
     }
 
+    // Verifica si las credenciales de usuario son correctas
+async verifyCredentials(collectionName: string, username: string, password: string): Promise<boolean> {
+    const db = admin.firestore();
+    const collectionRef = db.collection(collectionName);
+
+    // Busca un documento que coincida con el nombre de usuario proporcionado
+    const querySnapshot = await collectionRef.where('username', '==', username).get();
+
+    if (!querySnapshot.empty) {
+        // Si se encuentra un documento con el nombre de usuario, verifica la contraseña
+        const userDoc = querySnapshot.docs[0].data();
+
+        if (userDoc.password === password) {
+            // Las credenciales son correctas
+            return true;
+        }
+    }
+
+    // Las credenciales son incorrectas
+    return false;
+}
+
 }
