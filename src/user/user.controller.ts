@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
 import { UserService } from './user.service';
 import { createUserDto, updateUserDto } from '../dto/User.dto';
+import { userInfo } from 'os';
 
 @Controller('user')
 export class UserController {
@@ -71,7 +72,17 @@ export class UserController {
         );
     
         if (isVerified) {
-            return { message: 'Credenciales válidas' };
+            // return { message: 'Credenciales válidas' };
+            // retorna los datos del usuario y el token
+
+            const user = await this.firebaseService.getUserByUsername(collectionName, credentials.username);
+            return { user };
+
+            // retorna el usuario jwtoken
+            // const user = await this.firebaseService.getUserByUsername(collectionName, credentials.username);
+            // const token = await this.firebaseService.generateJWT(user);
+            // return { token };
+
         } else {
             throw new HttpException({
                 message: 'Credenciales inválidas',
