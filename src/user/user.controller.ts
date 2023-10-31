@@ -42,7 +42,7 @@ export class UserController {
     }
 
     //Endpoint para crear un usuario
-    @Post('add-user')
+    @Post('adduser')
     async createUser(@Body() data: createUserDto) {
         const collectionName = 'users';
         await this.firebaseService.createUser(collectionName, data);
