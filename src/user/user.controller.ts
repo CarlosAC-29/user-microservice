@@ -68,7 +68,7 @@ export class UserController {
         const isVerified = await this.firebaseService.verifyCredentials(
             collectionName,
             credentials.username,
-            credentials.password
+            credentials.password,
         );
     
         if (isVerified) {
