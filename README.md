@@ -3,7 +3,8 @@
 </p>
 
 # Integrantes 
-Carlos Andres Caceres  -  2126639 
+Carlos Andres Caceres  -  2126639
+<br />
 Geider Andres Montaño - 1840292 
 <hr />
 
